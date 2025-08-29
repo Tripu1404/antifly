@@ -21,12 +21,11 @@ jobs:
     - name: Descargar Nukkit jar
       run: |
         mkdir lib
-        curl -L -o lib/nukkit.jar https://ci.nukkitx.com/job/NukkitX/job/Nukkit/job/master/lastSuccessfulBuild/artifact/target/nukkit-1.0-SNAPSHOT.jar
-
+        curl -L -o lib/nukkit-1.0-20250805.172443-1219.jar https://repo.opencollab.dev/maven-snapshots/cn/nukkit/nukkit/1.0-SNAPSHOT/nukkit-1.0-20250805.172443-1219.jar
     - name: Compilar plugin
       run: |
         mkdir out
-        javac -cp "lib/nukkit.jar" -d out src/com/tuplugin/antifly/AntiFly.java
+        javac -cp "lib/nukkit-1.0-20250805.172443-1219.jar" -d out src/com/tuplugin/antifly/AntiFly.java
 
     - name: Crear JAR
       run: |
