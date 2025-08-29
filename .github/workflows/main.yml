@@ -1,0 +1,39 @@
+name: Build AntiFly Plugin (sin Maven)
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Clonar repositorio
+      uses: actions/checkout@v3
+
+    - name: Instalar JDK
+      uses: actions/setup-java@v3
+      with:
+        distribution: 'temurin'
+        java-version: '8'
+
+    - name: Descargar Nukkit jar
+      run: |
+        mkdir lib
+        curl -L -o lib/nukkit.jar https://ci.nukkitx.com/job/NukkitX/job/Nukkit/job/master/lastSuccessfulBuild/artifact/target/nukkit-1.0-SNAPSHOT.jar
+
+    - name: Compilar plugin
+      run: |
+        mkdir out
+        javac -cp "lib/nukkit.jar" -d out src/com/tuplugin/antifly/AntiFly.java
+
+    - name: Crear JAR
+      run: |
+        jar cf AntiFly.jar -C out . plugin.yml
+
+    - name: Subir artefacto
+      uses: actions/upload-artifact@v3
+      with:
+        name: AntiFly-Plugin
+        path: AntiFly.jar
