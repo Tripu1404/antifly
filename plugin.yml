@@ -1,0 +1,4 @@
+name: AntiFly
+main: com.tuplugin.antifly.AntiFly
+version: 1.0
+api: [1.0.0]
